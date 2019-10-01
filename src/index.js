@@ -36,9 +36,30 @@ const MORSE_TABLE = {
     '----.':  '9',
     '-----':  '0',
 };
+const BINARY = {
+    '10' : '.',
+    '11' : '-',
+    '00' : ''
+};
 
 function decode(expr) {
-    // write your solution here
+    let arWords = expr.split('**********');
+    let strDecode = '',
+        symMorse = '';
+
+    arWords.forEach(function(item, index){
+        symMorse = '';
+        for (let i = 0; i <= item.length; i +=2 ) {
+            if (i && !(i % 10)) {
+                strDecode += MORSE_TABLE[symMorse];
+                symMorse = '';
+            }
+            symMorse += BINARY[item.substr(i, 2)];
+        }
+
+        strDecode += (index !== arWords.length - 1) ? ' ' : '';
+    });
+    return strDecode;
 }
 
 module.exports = {
